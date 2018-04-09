@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:shiro="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+	<div class="wrapper wrapper-content ">
+		<div class="col-sm-12">
+			<div class="ibox">
+				<div class="ibox-body">
+					<div class="fixed-table-toolbar">
+						<div class="columns pull-left">
+							<button shiro:hasPermission="device:devicesdkloginLog:add" type="button" class="btn  btn-primary" onclick="add()">
+								<i class="fa fa-plus" aria-hidden="true"></i>添加
+							</button>
+							<button shiro:hasPermission="device:devicesdkloginLog:batchRemove" type="button" class="btn  btn-danger"
+								onclick="batchRemove()">
+								<i class="fa fa-trash" aria-hidden="true"></i>删除
+							</button>
+						</div>
+						<div class="columns pull-right">
+							<button class="btn btn-success" onclick="reLoad()">查询</button>
+						</div>
+						<div class="columns pull-right col-md-2">
+							<div class="input-group m-b">
+								<input id="endDate" type="text" class="laydate-icon layer-date form-control"
+									   placeholder="认证结束日期" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" readonly="readonly">
+							</div>
+
+						</div>
+						<div class="columns pull-right col-md-2">
+							<div class="input-group m-b">
+								<input id="startDate" type="text" class="laydate-icon layer-date form-control"
+									   placeholder="认证开始日期" onclick="laydate({istime: true, format: 'YYYY-MM-DD'})" style="background-color: #fff;" readonly="readonly">
+							</div>
+
+						</div>
+
+						<div class="columns pull-right col-md-2">
+							<div class="input-group m-b">
+								<div class="input-group-btn">
+									<button data-toggle="dropdown" class="btn btn-white dropdown-toggle" type="button">操作 <span class="caret"></span>
+									</button>
+									<ul class="dropdown-menu">
+										<li><a href="javascript:operTypeOnClick('0001');">初次认证</a>
+										</li>
+										<li class="divider"></li>
+										<li><a href="javascript:operTypeOnClick('0002');">登录认证</a>
+										</li>
+
+									</ul>
+								</div>
+								<input type="text" id="operType" class="form-control">
+							</div>
+						</div>
+						
+						
+                            
+                            
+					</div>
+					<table id="exampleTable" data-mobile-responsive="true">
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--shiro控制bootstraptable行内按钮看见性 来自bootdo的创新方案 -->
+		<div>
+			<script type="text/javascript">
+				var s_edit_h = 'hidden';
+				var s_remove_h = 'hidden';
+				var s_resetPwd_h = 'hidden';
+			</script>
+		</div>
+		<div shiro:hasPermission="device:devicesdkloginLog:edit">
+			<script type="text/javascript">
+				s_edit_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="device:devicesdkloginLog:remove">
+			<script type="text/javascript">
+				var s_remove_h = '';
+			</script>
+		</div>
+		<div shiro:hasPermission="device:devicesdkloginLog:resetPwd">
+			<script type="text/javascript">
+				var s_resetPwd_h = '';
+			</script>
+		</div>
+	</div>
+	<div th:include="include :: footer"></div>
+	<script type="text/javascript" src="/js/appjs/device/devicesdkloginLog/devicesdkloginLog.js"></script>
+</body>
+</html>

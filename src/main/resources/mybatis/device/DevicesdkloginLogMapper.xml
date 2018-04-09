@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.device.dao.DevicesdkloginLogDao">
+
+	<select id="get" resultType="com.bootdo.device.domain.DevicesdkloginLogDO">
+		select `id`,`oper_time`,`oper_type`,`result_code`,`client_time`,`license_key`,`soft_id`,`soft_privateid`,`mac_addr`,`client`,`manufacturer`,`productmodel`,`deviceid`,`city`,`ip`,`enable`,`disable_time` from y_devicesdklogin_log where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.device.domain.DevicesdkloginLogDO">
+		select `id`,`oper_time`,`oper_type`,`result_code`,`client_time`,`license_key`,`soft_id`,`soft_privateid`,`mac_addr`,`client`,`manufacturer`,`productmodel`,`deviceid`,`city`,`ip`,`enable`,`disable_time` from y_devicesdklogin_log
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="operTime != null and operTime != ''"> and oper_time = #{operTime} </if>
+		  		  <if test="operType != null and operType != ''"> and oper_type = #{operType} </if>
+		  		  <if test="resultCode != null and resultCode != ''"> and result_code = #{resultCode} </if>
+		  		  <if test="clientTime != null and clientTime != ''"> and client_time = #{clientTime} </if>
+		  		  <if test="licenseKey != null and licenseKey != ''"> and license_key = #{licenseKey} </if>
+		  		  <if test="softId != null and softId != ''"> and soft_id = #{softId} </if>
+		  		  <if test="softPrivateid != null and softPrivateid != ''"> and soft_privateid = #{softPrivateid} </if>
+		  		  <if test="macAddr != null and macAddr != ''"> and mac_addr = #{macAddr} </if>
+		  		  <if test="client != null and client != ''"> and client = #{client} </if>
+		  		  <if test="manufacturer != null and manufacturer != ''"> and manufacturer = #{manufacturer} </if>
+		  		  <if test="productmodel != null and productmodel != ''"> and productmodel = #{productmodel} </if>
+		  		  <if test="deviceid != null and deviceid != ''"> and deviceid = #{deviceid} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="ip != null and ip != ''"> and ip = #{ip} </if>
+		  		  <if test="enable != null and enable != ''"> and enable = #{enable} </if>
+		  		  <if test="disableTime != null and disableTime != ''"> and disable_time = #{disableTime} </if>
+				<if test="startDate != null and startDate != ''"> and oper_time >= #{startDate} </if>
+				<if test="endDate != null and endDate != ''"> and oper_time &lt;= #{endDate} </if>
+		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from y_devicesdklogin_log
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="operTime != null and operTime != ''"> and oper_time = #{operTime} </if>
+		  		  <if test="operType != null and operType != ''"> and oper_type = #{operType} </if>
+		  		  <if test="resultCode != null and resultCode != ''"> and result_code = #{resultCode} </if>
+		  		  <if test="clientTime != null and clientTime != ''"> and client_time = #{clientTime} </if>
+		  		  <if test="licenseKey != null and licenseKey != ''"> and license_key = #{licenseKey} </if>
+		  		  <if test="softId != null and softId != ''"> and soft_id = #{softId} </if>
+		  		  <if test="softPrivateid != null and softPrivateid != ''"> and soft_privateid = #{softPrivateid} </if>
+		  		  <if test="macAddr != null and macAddr != ''"> and mac_addr = #{macAddr} </if>
+		  		  <if test="client != null and client != ''"> and client = #{client} </if>
+		  		  <if test="manufacturer != null and manufacturer != ''"> and manufacturer = #{manufacturer} </if>
+		  		  <if test="productmodel != null and productmodel != ''"> and productmodel = #{productmodel} </if>
+		  		  <if test="deviceid != null and deviceid != ''"> and deviceid = #{deviceid} </if>
+		  		  <if test="city != null and city != ''"> and city = #{city} </if>
+		  		  <if test="ip != null and ip != ''"> and ip = #{ip} </if>
+		  		  <if test="enable != null and enable != ''"> and enable = #{enable} </if>
+		  		  <if test="disableTime != null and disableTime != ''"> and disable_time = #{disableTime} </if>
+			 <if test="startDate != null and startDate != ''"> and oper_time >= #{startDate} </if>
+			 <if test="endDate != null and endDate != ''"> and oper_time &lt;= #{endDate} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.device.domain.DevicesdkloginLogDO">
+		insert into y_devicesdklogin_log
+		(
+			`id`, 
+			`oper_time`, 
+			`oper_type`, 
+			`result_code`, 
+			`client_time`, 
+			`license_key`, 
+			`soft_id`, 
+			`soft_privateid`, 
+			`mac_addr`, 
+			`client`, 
+			`manufacturer`, 
+			`productmodel`, 
+			`deviceid`, 
+			`city`, 
+			`ip`, 
+			`enable`, 
+			`disable_time`
+		)
+		values
+		(
+			#{id}, 
+			#{operTime}, 
+			#{operType}, 
+			#{resultCode}, 
+			#{clientTime}, 
+			#{licenseKey}, 
+			#{softId}, 
+			#{softPrivateid}, 
+			#{macAddr}, 
+			#{client}, 
+			#{manufacturer}, 
+			#{productmodel}, 
+			#{deviceid}, 
+			#{city}, 
+			#{ip}, 
+			#{enable}, 
+			#{disableTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.device.domain.DevicesdkloginLogDO">
+		update y_devicesdklogin_log 
+		<set>
+			<if test="operTime != null">`oper_time` = #{operTime}, </if>
+			<if test="operType != null">`oper_type` = #{operType}, </if>
+			<if test="resultCode != null">`result_code` = #{resultCode}, </if>
+			<if test="clientTime != null">`client_time` = #{clientTime}, </if>
+			<if test="licenseKey != null">`license_key` = #{licenseKey}, </if>
+			<if test="softId != null">`soft_id` = #{softId}, </if>
+			<if test="softPrivateid != null">`soft_privateid` = #{softPrivateid}, </if>
+			<if test="macAddr != null">`mac_addr` = #{macAddr}, </if>
+			<if test="client != null">`client` = #{client}, </if>
+			<if test="manufacturer != null">`manufacturer` = #{manufacturer}, </if>
+			<if test="productmodel != null">`productmodel` = #{productmodel}, </if>
+			<if test="deviceid != null">`deviceid` = #{deviceid}, </if>
+			<if test="city != null">`city` = #{city}, </if>
+			<if test="ip != null">`ip` = #{ip}, </if>
+			<if test="enable != null">`enable` = #{enable}, </if>
+			<if test="disableTime != null">`disable_time` = #{disableTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from y_devicesdklogin_log where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from y_devicesdklogin_log where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
