@@ -18,8 +18,8 @@ function loadMenuTree(menuTree) {
 		"checkbox" : {
 			//"keep_selected_style" : false,
 			//"undetermined" : true
-			//"three_state" : false,
-			//"cascade" : ' up'
+			"three_state" : false,
+			"cascade" : 'down'
 		}
 	});
 	$('#menuTree').jstree('open_all');

@@ -42,9 +42,31 @@ public class LoginController extends BaseController {
 
 	@Log("请求访问主页")
 	@GetMapping({ "/index" })
-	String index(Model model) {
+	String index(Model model, Integer subSysId) {
+		logger.info(">>>>>>>>>>>>>>  " + subSysId);
 		List<Tree<MenuDO>> menus = menuService.listMenuTree(getUserId());
-		model.addAttribute("menus", menus);
+		List<Tree<MenuDO>> menusFinal = null;
+		String subSysName = "";
+		if (subSysId != null && subSysId != 0){
+			for (Tree<MenuDO> tree : menus){
+				if (subSysId == Integer.valueOf(tree.getId())){
+					menusFinal = tree.getChildren();
+					subSysName = tree.getText();
+					break;
+				}
+			}
+		}else {
+			menusFinal = menus;
+			if (menusFinal.size() == 1) {
+				menusFinal = menusFinal.get(0).getChildren();
+				subSysName = menusFinal.get(0).getText();
+			}
+		}
+
+
+		model.addAttribute("subSysName", subSysName);
+		model.addAttribute("subSys", menus);
+		model.addAttribute("menus", menusFinal);
 		model.addAttribute("name", getUser().getName());
 		FileDO fileDO = fileService.get(getUser().getPicId());
 		if(fileDO!=null&&fileDO.getUrl()!=null){

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.bootdo.compy.dao.CompyDao">
+
+	<select id="get" resultType="com.bootdo.compy.domain.CompyDO">
+		select `id`,`name`,`description`,`owner`,`assignee`,`start_time`,`claim_time`,`end_time`,`duration`,`delete_reason`,`priority`,`due_date`,`form_key`,`gategory`,`tenant_id` from cus_compy where id = #{value}
+	</select>
+
+	<select id="list" resultType="com.bootdo.compy.domain.CompyDO">
+		select `id`,`name`,`description`,`owner`,`assignee`,`start_time`,`claim_time`,`end_time`,`duration`,`delete_reason`,`priority`,`due_date`,`form_key`,`gategory`,`tenant_id` from cus_compy
+        <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="description != null and description != ''"> and description = #{description} </if>
+		  		  <if test="owner != null and owner != ''"> and owner = #{owner} </if>
+		  		  <if test="assignee != null and assignee != ''"> and assignee = #{assignee} </if>
+		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
+		  		  <if test="claimTime != null and claimTime != ''"> and claim_time = #{claimTime} </if>
+		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
+		  		  <if test="duration != null and duration != ''"> and duration = #{duration} </if>
+		  		  <if test="deleteReason != null and deleteReason != ''"> and delete_reason = #{deleteReason} </if>
+		  		  <if test="priority != null and priority != ''"> and priority = #{priority} </if>
+		  		  <if test="dueDate != null and dueDate != ''"> and due_date = #{dueDate} </if>
+		  		  <if test="formKey != null and formKey != ''"> and form_key = #{formKey} </if>
+		  		  <if test="gategory != null and gategory != ''"> and gategory = #{gategory} </if>
+		  		  <if test="tenantId != null and tenantId != ''"> and tenant_id = #{tenantId} </if>
+		  		</where>
+        <choose>
+            <when test="sort != null and sort.trim() != ''">
+                order by ${sort} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from cus_compy
+		 <where>  
+		  		  <if test="id != null and id != ''"> and id = #{id} </if>
+		  		  <if test="name != null and name != ''"> and name = #{name} </if>
+		  		  <if test="description != null and description != ''"> and description = #{description} </if>
+		  		  <if test="owner != null and owner != ''"> and owner = #{owner} </if>
+		  		  <if test="assignee != null and assignee != ''"> and assignee = #{assignee} </if>
+		  		  <if test="startTime != null and startTime != ''"> and start_time = #{startTime} </if>
+		  		  <if test="claimTime != null and claimTime != ''"> and claim_time = #{claimTime} </if>
+		  		  <if test="endTime != null and endTime != ''"> and end_time = #{endTime} </if>
+		  		  <if test="duration != null and duration != ''"> and duration = #{duration} </if>
+		  		  <if test="deleteReason != null and deleteReason != ''"> and delete_reason = #{deleteReason} </if>
+		  		  <if test="priority != null and priority != ''"> and priority = #{priority} </if>
+		  		  <if test="dueDate != null and dueDate != ''"> and due_date = #{dueDate} </if>
+		  		  <if test="formKey != null and formKey != ''"> and form_key = #{formKey} </if>
+		  		  <if test="gategory != null and gategory != ''"> and gategory = #{gategory} </if>
+		  		  <if test="tenantId != null and tenantId != ''"> and tenant_id = #{tenantId} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.bootdo.compy.domain.CompyDO">
+		insert into cus_compy
+		(
+			`id`, 
+			`name`, 
+			`description`, 
+			`owner`, 
+			`assignee`, 
+			`start_time`, 
+			`claim_time`, 
+			`end_time`, 
+			`duration`, 
+			`delete_reason`, 
+			`priority`, 
+			`due_date`, 
+			`form_key`, 
+			`gategory`, 
+			`tenant_id`
+		)
+		values
+		(
+			#{id}, 
+			#{name}, 
+			#{description}, 
+			#{owner}, 
+			#{assignee}, 
+			#{startTime}, 
+			#{claimTime}, 
+			#{endTime}, 
+			#{duration}, 
+			#{deleteReason}, 
+			#{priority}, 
+			#{dueDate}, 
+			#{formKey}, 
+			#{gategory}, 
+			#{tenantId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.bootdo.compy.domain.CompyDO">
+		update cus_compy 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="description != null">`description` = #{description}, </if>
+			<if test="owner != null">`owner` = #{owner}, </if>
+			<if test="assignee != null">`assignee` = #{assignee}, </if>
+			<if test="startTime != null">`start_time` = #{startTime}, </if>
+			<if test="claimTime != null">`claim_time` = #{claimTime}, </if>
+			<if test="endTime != null">`end_time` = #{endTime}, </if>
+			<if test="duration != null">`duration` = #{duration}, </if>
+			<if test="deleteReason != null">`delete_reason` = #{deleteReason}, </if>
+			<if test="priority != null">`priority` = #{priority}, </if>
+			<if test="dueDate != null">`due_date` = #{dueDate}, </if>
+			<if test="formKey != null">`form_key` = #{formKey}, </if>
+			<if test="gategory != null">`gategory` = #{gategory}, </if>
+			<if test="tenantId != null">`tenant_id` = #{tenantId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from cus_compy where id = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from cus_compy where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

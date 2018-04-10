@@ -99,14 +99,14 @@ public class MenuServiceImpl implements MenuService {
 	@Override
 	public Tree<MenuDO> getTree(Long id) {
 		// 根据roleId查询权限
-		List<MenuDO> menus = menuMapper.list(new HashMap<String, Object>(16));
+//		List<MenuDO> menus = menuMapper.list(new HashMap<String, Object>(16));
 		List<Long> menuIds = roleMenuMapper.listMenuIdByRoleId(id);
-		List<Long> temp = menuIds;
-		for (MenuDO menu : menus) {
-			if (temp.contains(menu.getParentId())) {
-				menuIds.remove(menu.getParentId());
-			}
-		}
+//		List<Long> temp = menuIds;
+//		for (MenuDO menu : menus) {
+//			if (temp.contains(menu.getParentId())) {
+//				menuIds.remove(menu.getParentId());
+//			}
+//		}
 		List<Tree<MenuDO>> trees = new ArrayList<Tree<MenuDO>>();
 		List<MenuDO> menuDOs = menuMapper.list(new HashMap<String, Object>(16));
 		for (MenuDO sysMenuDO : menuDOs) {
